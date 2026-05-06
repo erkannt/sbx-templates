@@ -49,7 +49,7 @@ RUN curl https://mise.run | sh
 RUN echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
 
 # Install runtimes + pnpm
-RUN mise use --global node@lts go@latest
+RUN mise use --global node@lts go@latest uv@latest
 
 RUN npm install -g pnpm
 

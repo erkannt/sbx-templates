@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+AGENT="${1:-}"
+if [[ "$AGENT" != "shell" && "$AGENT" != "claude" ]]; then
+    echo "Usage: sandbox <shell|claude>" >&2
+    exit 1
+fi
+
+NAMESPACE="rknt"
+WORKSPACE="$(pwd)"
+
+if [[ "$AGENT" == "shell" ]]; then
+    TEMPLATE="${NAMESPACE}/shell-mise-agents:latest"
+else
+    TEMPLATE="${NAMESPACE}/claude-code-mise-puppeteer:latest"
+fi
+
+# Check if a sandbox for this workspace already exists
+if sbx ls 2>/dev/null | awk 'NR>1 {print $NF}' | grep -qxF "$WORKSPACE"; then
+    echo "Reconnecting to existing sandbox for $WORKSPACE..."
+    sbx run "$AGENT"
+else
+    echo "Creating new $AGENT sandbox for $WORKSPACE..."
+    sbx run --template "$TEMPLATE" "$AGENT"
+fi

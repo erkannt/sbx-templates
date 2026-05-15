@@ -5,6 +5,7 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
   curl \
   git \
+  build-essential \
   ca-certificates \
   fonts-liberation \
   libatk-bridge2.0-0 \

@@ -56,7 +56,7 @@ RUN npm install -g pnpm
 
 # Install agents
 RUN npm install -g \
-  @mariozechner/pi-coding-agent \
+  @earendil-works/pi-coding-agent \
   opencode-ai \
   dirac-cli \
   @anthropic-ai/claude-code
